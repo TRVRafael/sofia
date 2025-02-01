@@ -1,0 +1,20 @@
+.env 
+
+# Ignorar diretórios de dependências e cache do Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignorar arquivos de IDE
+.vscode/
+.idea/
+
+# Ignorar arquivos de log
+*.log
+
+# Ignorar arquivos temporários
+*.tmp
+
+config/
