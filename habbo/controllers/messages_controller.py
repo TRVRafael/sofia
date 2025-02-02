@@ -5,20 +5,12 @@ from g_python.htools import HMessage
 from controllers.auxiliar.control_data import users_in_room, mods_in_room, set_attack_flag, get_attack_flag, room_messages
 
 # Módulos auxiliares
-from controllers.auxiliar.log_functions import log_message, log_attack
+from controllers.auxiliar.log_functions import log_message, log_attack, log_error
 from controllers.listeners.message_listener import register_message
 from controllers.auxiliar.auxiliar_functions import get_timestamp
 
 # Módulos adicionais
 import requests
-
-import sys
-import os
-
-# Adiciona o diretório pai ao sys.path
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-from main import exec_hide_area
 
 
 def on_message(message : HMessage):
@@ -47,13 +39,15 @@ def on_message(message : HMessage):
             "mods_list": mods_in_room
         }
 
-        requests.post("http://192.168.0.120:5555/atk_sign", headers=headers, json=body) # Webhook
+        try:
+            requests.post("http://192.168.0.120:5555/atk_sign", headers=headers, json=body) # Webhook
+        except Exception as err:
+            log_error(err)
 
-        exec_hide_area()
 
     if not user["nickname"]:
-        register_message("DESCONHECIDO", text, get_timestamp())
+        register_message("DESCONHECIDO", text, get_timestamp(), room_messages)
         return
     if get_attack_flag:
-        register_message(user["nickname"], text, get_timestamp())
+        register_message(user["nickname"], text, get_timestamp(), room_messages)
     

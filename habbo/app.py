@@ -3,9 +3,9 @@ from main import exec_hide_area
 
 app = Flask(__name__)
 
-@app.route("/hide", methods=["GET"])
-def get_data():
-    exec_hide_area()
+# @app.route("/hide", methods=["GET"])
+# def get_data():
+#     exec_hide_area()
 
 
 

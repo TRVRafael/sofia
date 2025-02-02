@@ -1,7 +1,7 @@
 import logging
 
 # Logging configuration
-logging.basicConfig(filename=r'sofia\habbo\controllers\logs\system_logs.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(filename=r'habbo\controllers\logs\system_logs.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 def log_entry(user_nickname, is_mod = False):
     if is_mod:

@@ -8,23 +8,22 @@ from controllers.messages_controller import on_message
 
 from controllers.attack_controller import check_hide_area
 
-extension_info = {
-    "title": 'Torvi. Defense',
-    "description": "Sistema de defesa automatizado.",
-    "version": "1.0",
-    "author": "Torvi."
-}
+if __name__ == '__main__':
 
-ext = Extension(extension_info, ('-p', '9092'))
-ext.start()
+    extension_info = {
+        "title": 'Torvi. Defense',
+        "description": "Sistema de defesa automatizado.",
+        "version": "1.0",
+        "author": "Torvi."
+    }
 
-room_users = RoomUsers(ext)
-room_users.on_remove_user(on_user_remove)
+    ext = Extension(extension_info, ('-p', '9092'))
+    ext.start()
 
-ext.intercept(Direction.TO_CLIENT, on_users_packet, "Users")
-ext.intercept(Direction.TO_CLIENT, on_message, "Chat")
-ext.intercept(Direction.TO_CLIENT, on_message, "Shout")
-ext.intercept(Direction.TO_CLIENT, check_hide_area, "AreaHide")
+    room_users = RoomUsers(ext)
+    room_users.on_remove_user(on_user_remove)
 
-def exec_hide_area():
-    ext.send_to_server('{out:UseFurniture}{b:127}{b:255}{i:0}{s:""}')
+    ext.intercept(Direction.TO_CLIENT, on_users_packet, "Users")
+    ext.intercept(Direction.TO_CLIENT, on_message, "Chat")
+    ext.intercept(Direction.TO_CLIENT, on_message, "Shout")
+    ext.intercept(Direction.TO_CLIENT, check_hide_area, "AreaHide")
